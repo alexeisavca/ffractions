@@ -7,9 +7,13 @@ class Fraction{
 
 export var fraction = (numerator, denominator) => new Fraction(numerator, denominator);
 
-export var fromNumber = (number, mult = 1) => Math.trunc(number) == number ?
-    fraction(number, mult) :
-    fromNumber(number * 10, mult * 10);
+var countDecimals = number => Math.trunc(number) == number ? 0 : 1 + countDecimals(number * 10);
+
+export var fromNumber = number => {
+    var decimals = countDecimals(number);
+    var powerOf10 = Math.pow(10, decimals);
+    return fraction(number * powerOf10, powerOf10);
+};
 
 export var fromString = string => {
     var number = string.split("/");
