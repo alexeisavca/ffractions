@@ -43,27 +43,21 @@ module.exports =
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.sumOf = sumOf;
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var polymorph = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"polymorph.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-	var identity = function identity(_) {
-	    return _;
-	};
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var Fraction = function Fraction(numerator, denominator) {
 	    _classCallCheck(this, Fraction);
 
-	    this.numerator = numerator;
-	    this.denominator = denominator;
+	    this.numerator = parseInt(numerator);
+	    this.denominator = parseInt(denominator);
 	};
 
 	var fraction = function fraction(numerator, denominator) {
@@ -71,20 +65,27 @@ module.exports =
 	};
 
 	exports.fraction = fraction;
-	var inverse = function inverse(fract) {
-	    return fraction(fract.denominator, fract.numerator);
+	var countDecimals = function countDecimals(number) {
+	    return Math.trunc(number) == number ? 0 : 1 + countDecimals(number * 10);
 	};
 
-	exports.inverse = inverse;
-	var ensureFraction = function ensureFraction(fraction) {
-	    return fraction instanceof Fraction ? fraction : console.log(ensureFraction(1));
+	var fromNumber = function fromNumber(number) {
+	    var decimals = countDecimals(number);
+	    var powerOf10 = Math.pow(10, decimals);
+	    return fraction(number * powerOf10, powerOf10);
 	};
 
-	exports.ensureFraction = ensureFraction;
+	exports.fromNumber = fromNumber;
+	var fromString = function fromString(string) {
+	    var number = string.split("/");
+	    return fraction(number[0], number[1]);
+	};
 
-	function sumOf() {
-	    Object.keys(arguments).map(ensureFraction);
-	}
+	exports.fromString = fromString;
+	var toFloat = function toFloat(fraction) {
+	    return parseFloat(fraction.numerator) / parseFloat(fraction.denominator);
+	};
+	exports.toFloat = toFloat;
 
 /***/ }
 /******/ ]);

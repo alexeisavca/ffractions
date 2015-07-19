@@ -19,3 +19,5 @@ export var fromString = string => {
     var number = string.split("/");
     return fraction(number[0], number[1]);
 };
+
+export var toFloat = fraction => parseFloat(fraction.numerator) / parseFloat(fraction.denominator);

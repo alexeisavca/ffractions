@@ -33,3 +33,10 @@ describe("creating fractions", () => {
         expect(fraction.denominator).toBe(21);
     });
 });
+
+describe("transforming fractions", () => {
+    it("should cast to float", () => {
+        var fraction = F.fraction(1,2);
+        expect(F.toFloat(fraction)).toBe(.5);
+    });
+});
